@@ -27,6 +27,7 @@ namespace Snake
         {
             Tail = pList.First();
             pList.Remove(Tail);
+            
             Point head = GetNextPoint();
             pList.Add(head);
 

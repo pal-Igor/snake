@@ -15,7 +15,10 @@ namespace Snake
             Walls walls = new Walls(120, 30);
             walls.Draw();
 
-            Point p = new Point(4, 5, '*');
+            int ScrW = Console.WindowWidth; //Размер окна консоли
+            int ScrH = Console.WindowHeight -2;
+
+            Point p = new Point(ScrW / 2, ScrH / 2, 'O');
             Snake snake = new Snake(p, 8, Direction.RIGHT);
 
             while (true)

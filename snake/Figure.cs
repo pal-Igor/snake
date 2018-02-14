@@ -9,7 +9,7 @@ namespace Snake
     class Figure
     {
         public List<Point> pList { get; set; }
-        public void Draw()
+        public virtual void Draw()
         {
             foreach (var p in pList)
             {
