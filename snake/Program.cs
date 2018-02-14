@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Snake
@@ -15,9 +16,18 @@ namespace Snake
             walls.Draw();
 
             Point p = new Point(4, 5, '*');
-            p.Draw();
+            Snake snake = new Snake(p, 8, Direction.RIGHT);
 
-            Console.ReadKey();
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    snake.HandleKey(key.Key);
+                }
+                snake.Move();
+                Thread.Sleep(100);
+            }
         }
     }
 }
