@@ -20,25 +20,67 @@ namespace Snake
                 p.Move(i, Direction);
                 pList.Add(p);
             }
+            Console.BackgroundColor = ConsoleColor.Blue;
             Draw(pList);
+            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         public void Move()
         {
             Tail = pList.First();
             pList.Remove(Tail);
-            
+
             Point head = GetNextPoint();
             pList.Add(head);
-
+            head.Sym = '~';
             Tail.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
             head.Draw();
+            Console.ForegroundColor = ConsoleColor.Black;
         }
 
         public Point GetNextPoint()
         {
-            Point head = pList.Last();
-            Point nextPoint = new Point(head);
+            Point headPoint = pList[pList.Count - 1];
+            Point vertPoint = pList[pList.Count - 2];
+            Point tailPoint = pList[0];
+            if (Direction == Direction.DOWN || Direction == Direction.UP)
+            {
+                vertPoint.Sym = ' ';
+                Draw(vertPoint, ConsoleColor.Blue, ConsoleColor.Black);
+            }
+            else if (Direction == Direction.LEFT || Direction == Direction.RIGHT)
+            {
+                vertPoint.Sym = ' ';
+                Draw(vertPoint, ConsoleColor.Blue, ConsoleColor.Black);
+            }
+
+            if (Direction == Direction.LEFT)
+            {
+                tailPoint.Sym = '>';
+                Draw(tailPoint, ConsoleColor.DarkBlue, ConsoleColor.Black, ConsoleColor.White);
+            }
+            else if (Direction == Direction.RIGHT)
+            {
+                tailPoint.Sym = '<';
+                Draw(tailPoint, ConsoleColor.DarkBlue, ConsoleColor.Black, ConsoleColor.White);
+            }
+            else if (Direction == Direction.DOWN)
+            {
+                tailPoint.Sym = '^';
+                Draw(tailPoint, ConsoleColor.DarkBlue, ConsoleColor.Black, ConsoleColor.White);
+            }
+            else
+            {
+                tailPoint.Sym = 'V';
+                Draw(tailPoint, ConsoleColor.DarkBlue, ConsoleColor.Black, ConsoleColor.White);
+            }
+
+            headPoint.Sym = ':';
+            Draw(headPoint, ConsoleColor.DarkBlue, ConsoleColor.Black, ConsoleColor.White);
+
+            Point tongue = pList.Last();
+            Point nextPoint = new Point(tongue);
             nextPoint.Move(1, Direction);
             return nextPoint;
         }
@@ -64,6 +106,20 @@ namespace Snake
             {
                 p.Draw();
             }
+        }
+        private void Draw(Point p, ConsoleColor cc, ConsoleColor cc1)
+        {
+            Console.BackgroundColor = cc;
+            p.Draw();
+            Console.BackgroundColor = cc1;
+        }
+
+        private void Draw(Point p, ConsoleColor cc, ConsoleColor cc1, ConsoleColor fc)
+        {
+            Console.ForegroundColor = fc;
+            Console.BackgroundColor = cc;
+            p.Draw();
+            Console.BackgroundColor = cc1;
         }
     }
 }

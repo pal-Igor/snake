@@ -53,6 +53,7 @@ namespace Snake
         public void Draw()
         {
             Console.SetCursorPosition(X, Y);
+            
             Console.Write(Sym);
         }
         public override string ToString()

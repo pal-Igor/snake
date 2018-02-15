@@ -11,18 +11,35 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            Console.SetBufferSize(120, 30);
-            Walls walls = new Walls(120, 30);
+            Console.Title = "Snaaaaake!";
+            Console.CursorVisible = false;
+            Console.SetWindowSize(70, 35);
+            Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
+            Console.Clear();
+            Walls walls = new Walls(Console.WindowWidth, Console.WindowHeight);
+
             walls.Draw();
 
             int ScrW = Console.WindowWidth; //Размер окна консоли
             int ScrH = Console.WindowHeight -2;
 
-            Point p = new Point(ScrW / 2, ScrH / 2, 'O');
+            Point p = new Point(ScrW / 2, ScrH / 2, ' ');
             Snake snake = new Snake(p, 8, Direction.RIGHT);
+
+            FoodCreator foodCreator = new FoodCreator(ScrW, ScrH, '#');
+            Point food = foodCreator.CreateFood();
+
+            Console.BackgroundColor = ConsoleColor.Red;
+            food.Draw();
+            Console.BackgroundColor = ConsoleColor.Black;
+            
 
             while (true)
             {
+                //if (snake)
+                //{
+
+                //}
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
