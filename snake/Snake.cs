@@ -25,6 +25,31 @@ namespace Snake
             Console.BackgroundColor = ConsoleColor.Black;
         }
 
+        public Point Tail { get; set; }
+        public int Lenght { get; set; }
+        public Direction Direction { get; set; }
+        public List<Point> pList { get; set; }
+
+        public void Draw(List<Point> pList)
+        {
+            foreach (var p in pList)
+            {
+                p.Draw();
+            }
+        }
+        private void Draw(Point p, ConsoleColor cc, ConsoleColor cc1)
+        {
+            Console.BackgroundColor = cc;
+            p.Draw();
+            Console.BackgroundColor = cc1;
+        }
+        private void Draw(Point p, ConsoleColor cc, ConsoleColor cc1, ConsoleColor fc)
+        {
+            Console.ForegroundColor = fc;
+            Console.BackgroundColor = cc;
+            p.Draw();
+            Console.BackgroundColor = cc1;
+        }
         public void Move()
         {
             Tail = pList.First();
@@ -38,7 +63,6 @@ namespace Snake
             head.Draw();
             Console.ForegroundColor = ConsoleColor.Black;
         }
-
         public Point GetNextPoint()
         {
             Point headPoint = pList[pList.Count - 1];
@@ -95,31 +119,29 @@ namespace Snake
             else if (key == ConsoleKey.UpArrow)
                 Direction = Direction.UP;
         }
-
-        public Point Tail { get; set; }
-        public int Lenght { get; set; }
-        public Direction Direction { get; set; }
-        public List<Point> pList { get; set; }
-        public void Draw(List<Point> pList)
+        public bool Eat(Point food)
         {
-            foreach (var p in pList)
+            Point head = GetNextPoint();
+            if (head.IsHit(food))
             {
-                p.Draw();
+                food.Sym = head.Sym;
+                pList.Add(food);
+                return true;
             }
+            else
+                return false;
         }
-        private void Draw(Point p, ConsoleColor cc, ConsoleColor cc1)
+        public bool IsHitTail()
         {
-            Console.BackgroundColor = cc;
-            p.Draw();
-            Console.BackgroundColor = cc1;
-        }
-
-        private void Draw(Point p, ConsoleColor cc, ConsoleColor cc1, ConsoleColor fc)
-        {
-            Console.ForegroundColor = fc;
-            Console.BackgroundColor = cc;
-            p.Draw();
-            Console.BackgroundColor = cc1;
+            var head = pList.Last();
+            for (int i = 0; i < pList.Count -2; i++)
+            {
+                if (head.IsHit(pList[i]))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

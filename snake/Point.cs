@@ -24,6 +24,7 @@ namespace Snake
         public int X { get; set; }
         public int Y { get; set; }
         public char Sym { get; set; }
+
         public void Move(int offset, Direction direction)
         {
             if (direction == Direction.RIGHT)
@@ -43,18 +44,20 @@ namespace Snake
                 Y += offset;
             }
         }
-
         public void Clear()
         {
             Sym = ' ';
             Draw();
         }
-
         public void Draw()
         {
             Console.SetCursorPosition(X, Y);
             
             Console.Write(Sym);
+        }
+        public bool IsHit(Point p)
+        {
+            return p.X == this.X && p.Y == this.Y;
         }
         public override string ToString()
         {
