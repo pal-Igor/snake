@@ -16,5 +16,14 @@ namespace Snake
                 p.Draw();
             }
         }
+        public bool IsHit(Snake snake)
+        {
+            foreach (var p in pList)
+            {
+                if (snake.IsHit(p))
+                    return true;
+            }
+            return false;
+        }
     }
 }

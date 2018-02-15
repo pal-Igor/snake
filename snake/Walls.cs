@@ -28,5 +28,16 @@ namespace Snake
                 wall.Draw();
             }
         }
+        public bool IsHit(Snake snake)
+        {
+            foreach (var wall in wallList)
+            {
+                if (wall.IsHit(snake))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

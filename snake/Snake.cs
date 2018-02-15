@@ -143,5 +143,14 @@ namespace Snake
             }
             return false;
         }
+        public bool IsHit(Point point)
+        {
+            foreach (var p in pList)
+            {
+                if (p.IsHit(point))
+                    return true;
+            }
+            return false;
+        }
     }
 }
